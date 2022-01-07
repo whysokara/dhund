@@ -8,15 +8,19 @@ const Results = () => {
   const { getResults, searchTerm, isLoading, results } = useResultContext();
   const location = useLocation();
 
-  useEffect(() => {
-    if (searchTerm !== "") {
-      if (location.pathname === "/videos") {
-        getResults(`/search/q=${searchTerm} videos`);
-      } else {
-        getResults(`${location.pathname}/q=${searchTerm}&num=6`);
+  useEffect(
+    () => {
+      if (searchTerm !== "") {
+        if (location.pathname === "/videos") {
+          getResults(`/search/q=${searchTerm} videos`);
+        } else {
+          getResults(`${location.pathname}/q=${searchTerm}&num=6`);
+        }
       }
-    }
-  }, [searchTerm, location.pathname]);
+    },
+    [searchTerm, location.pathname],
+    getResults
+  );
 
   if (isLoading) return <Loading />;
 
